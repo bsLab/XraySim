@@ -20,7 +20,7 @@ raytracing simulator based on gVirtualXray
 
 ### fbp
 
-Filtered Back Projection (parallel multi-threaded version) used to transform rotational projections to a 3D image stcaks.
+Filtered Back Projection (parallel multi-threaded version) used to transform rotational projections to a 3D image stack.
 
 
 ### openscad
