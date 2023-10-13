@@ -1,0 +1,4 @@
+#!/bin/bash
+
+fbp -f -r 29 77 -c 602  245  203  374 -bv 0.1 -t 4 test.mp4
+
