@@ -1,0 +1,21 @@
+#!/bin/bash
+
+GVXR=/opt/gvxr-1.1.3/
+echo "[1] Building xraysim.o"
+c++ -g -O2 -I$GVXR/SimpleGVXR-1.0.1/include -c xraysim.cxx
+
+# exit 0
+VULKAN=-lvulkan
+
+echo "[2] Building xraysim"
+c++ -g -O2 -lgomp -fopenmp -lm -lz -ltiff -ldl -lpthread  -lX11  -lXinerama \
+           -lXxf86vm -lXrandr -lXcursor \
+           -lGL -lGLU -lXi $VULKAN -o xraysim xraysim.o  \
+  $GVXR/SimpleGVXR-1.0.1/lib/libSimpleGVXR.a \
+  $GVXR/gVirtualXRay-1.1.3/lib/libgVirtualXRay.a \
+  $GVXR/third_party/lib/libglfw3.a \
+  $GVXR/gVirtualXRay-1.1.3/third_party/lib/libGLEW.a \
+  $GVXR/gVirtualXRay-1.1.3/third_party/lib/libassimp.a \
+  $GVXR/gVirtualXRay-1.1.3/third_party/lib/libIrrXML.a
+
+strip xraysim
