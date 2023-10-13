@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Version 1.1.1 uses OpenGL 3 and can be used with SW renedering if GPU code fails:
+# LIBGL_ALWAYS_SOFTWARE=1 xraysim / xraysim -soft
+
+GVXR=/opt/gvxr-1.1.1/
+echo "[1] Building xraysim1.o"
+c++ -g -O2 -I$GVXR/SimpleGVXR-1.0.1/include -c xraysim.cxx -o xraysim1.o
+
+# exit 0
+
+echo "[2] Building xraysim1"
+c++ -g -O2 -lgomp -fopenmp -lm -lz -ltiff -ldl -lpthread  -lX11  -lXinerama \
+           -lXxf86vm -lXrandr -lXcursor \
+           -lGL -lGLU -lXi -o xraysim1 xraysim1.o  \
+  $GVXR/SimpleGVXR-1.0.1/lib/libSimpleGVXR.a \
+  $GVXR/gVirtualXRay-1.1.1/lib/libgVirtualXRay.a \
+  $GVXR/gVirtualXRay-1.1.1/third_party/lib/libglfw3.a \
+  $GVXR/gVirtualXRay-1.1.1/third_party/lib/libGLEW.a \
+  $GVXR/gVirtualXRay-1.1.1/third_party/lib/libassimp.a \
+  $GVXR/gVirtualXRay-1.1.1/third_party/lib/libIrrXML.a
+
+strip xraysim1
